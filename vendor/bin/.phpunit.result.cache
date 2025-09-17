@@ -1,0 +1,1 @@
+{"version":2,"defects":{"TestHumain::testConstructeur":8,"TestHumain::testGetSet":8,"TestStade::test":7},"times":{"TestHumain::testConstructeur":0.004,"TestHumain::testGetSet":0,"TestEvenement::testConstructeurEtGetters":0.019,"TestEvenement::testSetters":0,"TestStade::testConstructeurEtGetters":0.003,"TestStade::test":0}}
