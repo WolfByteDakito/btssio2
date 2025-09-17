@@ -1,54 +1,59 @@
-<?php 
-
+<?php
 namespace App;
 
-use PHPUnit\Util\PHP\JobRunnerRegistry;
+
+use App\Selectionneur;
+
 
 class Equipe
 {
     private string $nom;
     private string $pays;
-
-    public function __construct(string $nom, string $pays)
+    private ?Selectionneur $selectionneur = null;
+    public function __construct(string $nom, string $pays, ?Selectionneur $selectionneur)
     {
         $this->nom = $nom;
         $this->pays = $pays;
+        if ($selectionneur != null) {
+            if ($selectionneur->getEquipe() != null) {
+                $selectionneur->getEquipe()->setSelectionneur(null);
+            }
+            $selectionneur->setEquipe($this);
+        }
     }
+
 
     public function getNom(): string
     {
         return $this->nom;
     }
-
     public function getPays(): string
     {
         return $this->pays;
     }
-
     public function getSelectionneur(): Selectionneur
     {
-        return new Selectionneur($this->nom, $this->pays);
+        return $this->selectionneur;
     }
-
-    public function setSelectionneur(Selectionneur $selection): void
+    public function setSelectionneur(?Selectionneur $selectionneur): void
     {
-        $this->pays = "";
-        $this->nom = "";
+        if ($this->selectionneur != $selectionneur) {
+            if ($this->selectionneur != null) {
+                $this->selectionneur->setEquipe(null);
+            }
+            $this->selectionneur = $selectionneur;
+            if ($selectionneur != null) {
+               
+                $selectionneur->setEquipe($this);
+            }
+        }
     }
-
-    public function getJoueur(): Joueur
+    public function donneTexte(): string
     {
-        return new Joueur($this->nom, $this->pays);
-    }
-
-    public function AddJoueur(Joueur $joueur): void
-    {
-        $this->joueur[] = $joueur;
-        $joueur->AddJoueur($this);
-    }
-
-    public function donneTexte():string
-    {
-        
+        if ($this->selectionneur == null) {
+            return $this->nom . " " . $this->pays . " sans sélectionneur";
+        } else {
+            return $this->nom . " " . $this->pays . " " . $this->selectionneur->getNom() . " " . $this->selectionneur->getPrenom();
+        }
     }
 }
