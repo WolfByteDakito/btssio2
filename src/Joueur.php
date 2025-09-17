@@ -1,32 +1,42 @@
-<?php 
-
+<?php
 namespace App;
+use DateTime;
 
-use DateTime;   
 
-class Joueur extends Humain
-{
+class Joueur extends Humain{
     private int $numero;
 
-    public function __construct($nom, $prenom, $datenaissance, $numero)
-    {
-        parent::__construct($nom, $prenom, $datenaissance);
-        $this->numero = $numero;
 
+    public function __construct(string $nom, string $prenom, DateTime $dateNaissance, int $numero)
+    {
+        parent::__construct($nom, $prenom, $dateNaissance);
+        $this->numero = $numero;
     }
+
 
     public function getNumero(): int
     {
         return $this->numero;
+
+
     }
+
 
     public function setNumero(int $numero): void
     {
-        $this->$numero = $numero;
-    }
+        if($numero > 0 && $numero < 27){
+            $this->numero = $numero;
+        }
 
-    public function donneTexte():string 
-    {
+
+    }  
+
+
+    public function donneTexte(): string{
         return "nom : ".$this->getNom(). " prenom : ".$this->getPrenom()  . ' (' . $this->numero . ')';
     }
+
+
+
+
 }
