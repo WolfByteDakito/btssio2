@@ -2,7 +2,6 @@
 
 use App\Stade;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class TestStade extends TestCase
 {

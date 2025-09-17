@@ -3,15 +3,15 @@
 
 
 
-use App\Arbitre;
+use App\Joueur;
 use PHPUnit\Framework\TestCase;
 
 
-class TestArbitre extends TestCase
+class TestJoueur extends TestCase
 {
     public function testConstructeur()
     {
-        $giroud = new Arbitre("Giroud", "Olivier", new DateTime("1986-09-30"), "Français");
+        $giroud = new Joueur("Giroud", "Olivier", new DateTime("1986-09-30"), "12");
 
 
         $this->assertEquals("Giroud", $giroud->getNom());
@@ -22,6 +22,6 @@ class TestArbitre extends TestCase
 
         $this->assertEquals("1986-09-30", $giroud->getDateNaissance()->format("Y-m-d"));
 
-        $this->assertEquals("Français", $giroud->getNationalite());
+        $this->assertEquals("12", $giroud->getNumero());
     }
 }
