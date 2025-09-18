@@ -1,20 +1,19 @@
 <?php
 
-
 include_once "./vendor/autoload.php";
 
-
-use App\Joueur;
-
-
+use App\Stade;
+use App\Equipe;
 
 
-// $unHumain = new Humain("Doe", "John", new DateTime("2000-01-01"));
-// echo "texte : ".$unHumain->donneTexte();
+$equipe = new Equipe("PSG", "France", null, null);
 
 
-// $unHumain->setNom("Dupont");
+$stade = new Stade("Parc des Princes", "Paris", 48000, $equipe);
 
 
-// echo "\ntexte : ".$unHumain->donneTexte();
+echo "Nom du stade de l'équipe : " . $equipe->getStade()->getNom() . PHP_EOL;
+echo "Nom de l'équipe habituelle du stade : " . $stade->getEquipeHabituelle()->getNom() . PHP_EOL;
+
+
 

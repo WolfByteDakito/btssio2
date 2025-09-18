@@ -3,6 +3,7 @@ namespace App;
 
 
 use App\Selectionneur;
+use ApP\Stade;
 
 
 class Equipe
@@ -10,7 +11,10 @@ class Equipe
     private string $nom;
     private string $pays;
     private ?Selectionneur $selectionneur = null;
-    public function __construct(string $nom, string $pays, ?Selectionneur $selectionneur)
+
+    private ?Stade $stadeHabituel = null;
+
+    public function __construct(string $nom, string $pays, ?Selectionneur $selectionneur, ?Stade $stadeHabituel)
     {
         $this->nom = $nom;
         $this->pays = $pays;
@@ -48,6 +52,27 @@ class Equipe
             }
         }
     }
+
+    public function getStade(): ?Stade
+    {
+        return $this->stadeHabituel;
+    }
+
+    public function setStade(?Stade $stadeHabituel): void
+    {
+        if ($this->stadeHabituel != $stadeHabituel) 
+        {
+            if ($this->stadeHabituel != null) {
+                $this->stadeHabituel->setEquipeHabtituelle(null);
+            }
+            $this->stadeHabituel = $stadeHabituel;
+            if ($stadeHabituel != null) {
+                $stadeHabituel->setEquipeHabtituelle($this);
+            }
+        }
+
+    }   
+    
     public function donneTexte(): string
     {
         if ($this->selectionneur == null) {
