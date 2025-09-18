@@ -1,19 +1,18 @@
 <?php
 
+
 include_once "./vendor/autoload.php";
 
-use App\Stade;
+
+use App\Remplacement;
+use App\Evenement;
+use App\Joueur;
 use App\Equipe;
 
+$equipe1 = new Equipe("PSG", "France", null, null);
 
-$equipe = new Equipe("PSG", "France", null, null);
+$joueur1 = new Joueur("Pussy", "Sacha", new DateTime("2004-03-20"), 20, $equipe1);
+$joueur2 = new Joueur("Bouvresse", "Lohann", new DateTime("2006-02-06"), 15, $equipe1);
 
-
-$stade = new Stade("Parc des Princes", "Paris", 48000, $equipe);
-
-
-echo "Nom du stade de l'équipe : " . $equipe->getStade()->getNom() . PHP_EOL;
-echo "Nom de l'équipe habituelle du stade : " . $stade->getEquipeHabituelle()->getNom() . PHP_EOL;
-
-
+$remplacement1 = new Remplacement(new DateTime("10:15"), "Remplacement", $joueur1, $joueur2);
 

@@ -3,11 +3,11 @@ namespace App;
 use DateTime;
 
 
-class Joueur extends Humain{
+class Joueur extends Humain
+{
     private int $numero;
 
      private ?Equipe $equipe;
-
 
     public function __construct(string $nom, string $prenom, DateTime $dateNaissance, int $numero, ?Equipe $equipe)
     {
