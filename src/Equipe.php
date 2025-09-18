@@ -14,6 +14,8 @@ class Equipe
 
     private ?Stade $stadeHabituel = null;
 
+    private array $joueurs;
+
     public function __construct(string $nom, string $pays, ?Selectionneur $selectionneur, ?Stade $stadeHabituel)
     {
         $this->nom = $nom;
@@ -24,6 +26,7 @@ class Equipe
             }
             $selectionneur->setEquipe($this);
         }
+        $this->joueurs = []; // Initialisation du tableau de joueurs
     }
 
 
@@ -73,12 +76,56 @@ class Equipe
 
     }   
     
-    public function donneTexte(): string
+    //Pour avoir la liste des joueurs de l'équipe
+    public function getJoueurs(): array
     {
-        if ($this->selectionneur == null) {
-            return $this->nom . " " . $this->pays . " sans sélectionneur";
-        } else {
-            return $this->nom . " " . $this->pays . " " . $this->selectionneur->getNom() . " " . $this->selectionneur->getPrenom();
+        return $this->joueurs;
+    }
+
+
+    public function ajouterJoueur(Joueur $joueur): void
+    {
+        if (!in_array($joueur, $this->joueurs, true)) // Pour éviter les doublons
+        {
+            $this->joueurs[] = $joueur; // Pour ajouter un joueur à l'équipe
+            $joueur->setEquipe($this); // Met à jour l'équipe du joueur
         }
     }
+
+
+    public function retirerJoueur(Joueur $joueur): void
+    {
+        //Exemple de suppression d'un joueur de l'équipe car le php est compliqué pour la gestion des ensembles !
+        $index = array_search($joueur, $this->joueurs, true);
+        if ($index !== false) {
+            unset($this->joueurs[$index]);
+            $this->joueurs = array_values($this->joueurs); // Réindexer le tableau
+        }
+    }
+
+    public function donneTexte(): string
+    {
+        $str = "";
+        if ($this->selectionneur == null) {
+            $str .= $this->nom . " " . $this->pays . " sans sélectionneur";
+        } else {
+            $str .= $this->nom . " " . $this->pays . " " . $this->selectionneur->getNom() . " " . $this->selectionneur->getPrenom();
+        }
+        if (count($this->joueurs) == 0) {
+            $str .= "\n Aucun joueur dans l'équipe.";
+            return $str;
+        } else {
+            $str .= "\n Joueurs :";
+
+
+            foreach ($this->joueurs as $joueur) {
+                $str .= "\n   " . $joueur->donneTexte();
+            }
+        }
+
+
+        return $str;
+    }
 }
+
+
